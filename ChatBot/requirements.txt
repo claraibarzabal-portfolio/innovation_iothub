@@ -1,0 +1,12 @@
+azure-cosmos==4.2.0
+Flask==1.1.4
+azure-core==1.28.0
+botbuilder-core==4.14.1
+botbuilder-schema==4.14.1
+openai==0.27.0
+azure-ai-contentsafety
+python-dotenv==0.21.0
+azure-search-documents==11.4.0
+requests
+Werkzeug==1.0.1
+markupsafe==2.0.1

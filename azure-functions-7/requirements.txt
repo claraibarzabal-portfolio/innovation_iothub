@@ -1,0 +1,9 @@
+azure-devops
+azure-identity==1.12.0
+requests==2.26.0
+pytest==6.2.5
+azure-functions
+azure-cosmos
+azure-identity
+azure-keyvault-secrets
+azure-storage-blob

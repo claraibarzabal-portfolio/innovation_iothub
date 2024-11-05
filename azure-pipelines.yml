@@ -1,0 +1,104 @@
+# Starter pipeline
+# Start with a minimal pipeline that you can customize to build and deploy your code.
+# Este pipeline está diseñado para construir y desplegar los recursos de tu proyecto.
+# Add steps that build, run tests, deploy, and more:
+# https://aka.ms/yaml
+# Azure DevOps Pipeline para el Proyecto Agro
+
+# azure-pipelines.yml
+trigger:
+- main  # El pipeline se activará con cada commit en la rama 'main'
+
+pool:
+  vmImage: ubuntu-latest  # Usa una imagen de máquina virtual de Ubuntu
+
+steps:
+- script: |
+    echo "Configurando el entorno..."
+    pip install -r requirements.txt
+  displayName: 'Configurar el Entorno'
+
+- script: |
+    echo "Ejecutando pruebas..."
+    pytest
+  displayName: 'Ejecutar Pruebas'
+
+- script: |
+    echo "Construyendo el proyecto..."
+    python setup.py build
+  displayName: 'Construir Proyecto'
+
+# Llama al script Python que contiene la lógica del pipeline
+- script: |
+    echo "Ejecutando el script de despliegue..."
+    python deploy_pipeline.py
+  displayName: 'Ejecutar Script de Despliegue'
+
+- script: |
+    echo "Desplegando Azure IoT Hub..."
+    az iot hub create --name YourIoTHubName --resource-group YourResourceGroupName --sku F1
+  displayName: 'Desplegar IoT Hub'
+
+- script: |
+    echo "Desplegando Device Provisioning Service..."
+    az iot dps create --name YourDPSName --resource-group YourResourceGroupName
+  displayName: 'Desplegar Device Provisioning Service'
+
+- script: |
+    echo "Desplegando Azure Data Factory..."
+    az datafactory create --name YourDataFactoryName --resource-group YourResourceGroupName
+  displayName: 'Desplegar Azure Data Factory'
+
+- script: |
+    echo "Desplegando Azure Data Lake Storage..."
+    az storage account create --name YourDataLakeName --resource-group YourResourceGroupName --location YourLocation --sku StorageV2
+  displayName: 'Desplegar Azure Data Lake Storage'
+
+- script: |
+    echo "Desplegando Azure Stream Analytics..."
+    az stream-analytics job create --name YourJobName --resource-group YourResourceGroupName --location YourLocation
+  displayName: 'Desplegar Azure Stream Analytics'
+
+- script: |
+    echo "Desplegando Azure Synapse Analytics..."
+    az synapse workspace create --name YourSynapseWorkspaceName --resource-group YourResourceGroupName --location YourLocation
+  displayName: 'Desplegar Azure Synapse Analytics'
+
+- script: |
+    echo "Desplegando Azure Functions..."
+    az functionapp create --name YourFunctionAppName --resource-group YourResourceGroupName --plan YourAppServicePlan --runtime python
+  displayName: 'Desplegar Azure Functions'
+
+- script: |
+    echo "Desplegando Azure Bot Service..."
+    az bot create --name YourBotName --resource-group YourResourceGroupName --kind webapp
+  displayName: 'Desplegar Azure Bot Service'
+
+- script: |
+    echo "Configurando Azure OpenAI / Cognitive Services..."
+    az cognitiveservices account create --name YourOpenAIName --resource-group YourResourceGroupName --kind CognitiveServices --sku S0
+  displayName: 'Configurar Azure OpenAI / Cognitive Services'
+
+- script: |
+    echo "Desplegando Azure Machine Learning..."
+    az ml workspace create --name YourMLWorkspaceName --resource-group YourResourceGroupName
+  displayName: 'Desplegar Azure Machine Learning'
+
+- script: |
+    echo "Configurando monitoreo de drift para modelos de ML..."
+    # Aquí puedes agregar comandos específicos para configurar el monitoreo de drift
+    echo "Monitoreo de drift configurado."
+  displayName: 'Configurar Monitoreo de Drift'
+
+- script: |
+    echo "Configurando Azure Monitor y Application Insights..."
+    az monitor log create --resource-group YourResourceGroupName
+    az monitor app-insights component create --app YourAppName --resource-group YourResourceGroupName --location YourLocation
+    echo "Monitoreo y logging configurados."
+  displayName: 'Configurar Monitoreo y Logging'
+
+- script: |
+    echo "Enviando notificación..."
+    # Aquí puedes agregar el código para enviar notificaciones
+    echo "Notificación enviada."
+  displayName: 'Enviar Notificación'
